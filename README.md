@@ -2,7 +2,7 @@
 
 ## Run project
 
-To build the library use:
+To run project
 
 ```sh
 npm run back
