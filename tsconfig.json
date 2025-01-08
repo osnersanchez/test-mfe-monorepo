@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/shell"
+    },
+    {
+      "path": "./apps/header"
+    },
+    {
+      "path": "./apps/product_listing"
+    },
+    {
+      "path": "./apps/product_detail"
+    },
+    {
+      "path": "./apps/backend"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "name": "product_detail",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/product_detail/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/product_detail",
+        "index": "apps/product_detail/src/index.html",
+        "baseHref": "/",
+        "main": "apps/product_detail/src/main.ts",
+        "tsConfig": "apps/product_detail/tsconfig.app.json",
+        "assets": [
+          "apps/product_detail/src/favicon.ico",
+          "apps/product_detail/src/assets"
+        ],
+        "styles": ["apps/product_detail/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/product_detail/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/product_detail/src/environments/environment.ts",
+              "with": "apps/product_detail/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/product_detail/webpack.config.prod.ts"
+        }
+      },
+      "dependsOn": ["^build", "typecheck"]
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "product_detail:build",
+        "hmr": true,
+        "port": 4203
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "product_detail:build:development"
+        },
+        "production": {
+          "buildTarget": "product_detail:build:production",
+          "hmr": false
+        }
+      },
+      "dependsOn": ["typecheck"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "executor": "@nx/react:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "product_detail:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "product_detail:serve:development"
+        },
+        "production": {
+          "serveTarget": "product_detail:serve:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{projectRoot}/test-output/jest/coverage"],
+      "options": {
+        "jestConfig": "apps/product_detail/jest.config.ts"
+      }
+    }
+  }
+}

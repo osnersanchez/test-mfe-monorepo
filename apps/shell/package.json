@@ -1,0 +1,10 @@
+{
+  "name": "@meli/shell",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "shell",
+    "projectType": "application",
+    "sourceRoot": "apps/shell/src"
+  }
+}
